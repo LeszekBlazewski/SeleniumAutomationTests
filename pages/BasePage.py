@@ -7,11 +7,16 @@ from abc import abstractmethod
 from LocatorModes import LocatorMode
 
 
-class Common(object):
-    """Contains wrappers for selenium methods."""
+class BasePage(object):
+    """Class represents the base page."""
 
     def __init__(self, driver):
         self.driver = driver
+        self._verify_page()
+
+        @abstractmethod
+        def _verify_page(self):
+            """This method verifies that we are on the correct page."""
 
     def wait_for_element_visibility(self, waitTime, locatorMode, locator):
         if locatorMode == LocatorMode.ID:
@@ -99,3 +104,7 @@ class Common(object):
     def click(self, waitTime, locatorMode, locator):
         self.wait_until_element_clickable(
             waitTime, locatorMode, locator).click()
+
+
+class IncorrectPageException(Exception):
+    """ This exception should be thrown when trying to instantiate the wrong page. """
