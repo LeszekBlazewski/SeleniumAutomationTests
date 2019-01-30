@@ -17,3 +17,6 @@ class ContactPage(BasePage):
 
     def submit_request(self):
         self.fill_out_field('id', 'email', Test_Data['Valid_Email'])
+
+# TODO finish this function to fill out the form and send it away
+# TODO Keep following the tutorial on youtube.
