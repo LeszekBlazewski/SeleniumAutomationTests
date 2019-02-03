@@ -4,11 +4,12 @@ from selenium.webdriver.support.select import Select
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from abc import abstractmethod
-from LocatorModes import LocatorMode
+from ..LocatorModes import LocatorMode
 
 
 class BasePage(object):
-    """Class represents the base page."""
+    """Class represents the base page. Functions as a base schema for all
+    pages."""
 
     def __init__(self, driver):
         self.driver = driver
@@ -20,7 +21,6 @@ class BasePage(object):
 
     def wait_for_element_visibility(self, waitTime, locatorMode, locator):
         if locatorMode == LocatorMode.ID:
-            4
             element = WebDriverWait(
                 self.driver, waitTime).until(
                 EC.visibility_of_element_located(
@@ -87,11 +87,11 @@ class BasePage(object):
             element = self.driver.find_element_by_id(locator)
         elif locatorMode == LocatorMode.NAME:
             element = self.driver.find_element_by_name(locator)
-        elif locatorMode == locatorMode.XPATH:
+        elif locatorMode == LocatorMode.XPATH:
             element = self.driver.find_element_by_xpath(locator)
-        elif locatorMode == locatorMode.CSS_SELECTOR:
+        elif locatorMode == LocatorMode.CSS_SELECTOR:
             element = self.driver.find_element_by_css_selector(locator)
-        elif locatorMode == locatorMode.CLASS_NAME:
+        elif locatorMode == LocatorMode.CLASS_NAME:
             element = self.driver.find_element_by_class_name(locator)
         else:
             raise Exception("Unsupported locator strategy.")
@@ -101,10 +101,15 @@ class BasePage(object):
         self.find_element(locatorMode, locator).clear()
         self.find_element(locatorMode, locator).send_keys(text)
 
+    def choose_option_from_dropdown(self, locatorMode, locator, option):
+        dropdown_list = Select(self.find_element(locatorMode, locator))
+        dropdown_list.select_by_visible_text(option)
+
     def click(self, waitTime, locatorMode, locator):
         self.wait_until_element_clickable(
             waitTime, locatorMode, locator).click()
 
 
 class IncorrectPageException(Exception):
-    """ This exception should be thrown when trying to instantiate the wrong page. """
+    """ This exception should be thrown when trying to instantiate the wrong
+    page. """

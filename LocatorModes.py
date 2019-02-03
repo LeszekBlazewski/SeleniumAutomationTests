@@ -5,4 +5,3 @@ class LocatorMode:
     XPATH = 'xpath'
     CSS_SELECTOR = 'cssSelector'
     CLASS_NAME = 'className'
-
