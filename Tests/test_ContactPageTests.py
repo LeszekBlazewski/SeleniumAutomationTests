@@ -2,14 +2,14 @@ from .BaseTestCase import BaseTestClass
 from ..pages.ContactPage import ContactPage
 from SeleniumAutomationTests.TestData import Test_Data
 from ..LocatorModes import LocatorMode
+from ..DriverSettings import Driver_Settings
 
 
 class ContactPageTests(BaseTestClass):
 
     def setUp(self):
         super(ContactPageTests, self).setUp()
-        self.navigate_to_page(
-            'http://automationpractice.com/index.php?controller=contact')
+        self.navigate_to_page(Driver_Settings['Contact_page_URL'])
 
     def test_SendMessage(self):
         contact_page_obj = ContactPage(self.driver)
