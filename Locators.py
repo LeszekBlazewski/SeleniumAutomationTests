@@ -9,3 +9,5 @@ class ContactPageLocators(object):
     ORDER_REFERENCE_FIELD = (By.ID, "id_order")
     MESSAGE_FIELD = (By.ID, 'message')
     SEND_BUTTON = (By.ID, 'submitMessage')
+    SUCCESS_ALERT = (By.CLASS_NAME, 'alert.alert-success')
+    FAILURE_ALERT = (By.CLASS_NAME, 'alert.alert-danger')
