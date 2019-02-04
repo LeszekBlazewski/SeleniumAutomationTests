@@ -8,6 +8,7 @@ class ContactPageLocators(object):
     EMAIL_FIELD = (By.ID, "email")
     ORDER_REFERENCE_FIELD = (By.ID, "id_order")
     MESSAGE_FIELD = (By.ID, 'message')
+    ATTACHMENT_FIELD = (By.ID, 'fileUpload')
     SEND_BUTTON = (By.ID, 'submitMessage')
     SUCCESS_ALERT = (By.CLASS_NAME, 'alert.alert-success')
     FAILURE_ALERT = (By.CLASS_NAME, 'alert.alert-danger')

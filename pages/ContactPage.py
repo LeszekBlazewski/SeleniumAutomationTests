@@ -1,7 +1,7 @@
 from .BasePage import BasePage, IncorrectPageException
 from ..TestData import Test_Data
 from SeleniumAutomationTests.Locators import ContactPageLocators
-from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import NoSuchElementException, InvalidArgumentException
 
 
 class ContactPage(BasePage):
@@ -34,6 +34,13 @@ class ContactPage(BasePage):
     def click_send_button(self):
         self.click(5, *ContactPageLocators.SEND_BUTTON)
 
+    def fill_atachment_field(self, filename):
+        try:
+            self.fill_out_field(
+                *ContactPageLocators.ATTACHMENT_FIELD, filename)
+        except InvalidArgumentException as e:
+            print('File name specified in test does not exist !')
+
     def verify_success_messag_popup(self):
         pop_up_element = None
         try:
@@ -56,9 +63,10 @@ class ContactPage(BasePage):
 
         return pop_up_element.is_displayed()
 
-    def sendMessage(self, messageHeading, email, orderReference, message):
+    def sendMessage(self, messageHeading, email, orderReference, message, attachmentName):
         self.select_subject_heading(messageHeading)
         self.fill_email_address(email)
         self.fill_order_reference(orderReference)
+        self.fill_atachment_field(attachmentName)
         self.fill_message_text(message)
         self.click_send_button()

@@ -9,4 +9,6 @@ Test_Data = dict(Valid_Username="lepka",
                  Invalid_Message_header='Invalid',
                  Valid_order_reference='1000',
                  Invalid_order_reference='dog',
+                 Valid_attachment_path='/home/beard/GithubRepos/SeleniumAutomationTests/test.txt',
+                 Invalid_attachmnet_path='/home/beard',
                  )
