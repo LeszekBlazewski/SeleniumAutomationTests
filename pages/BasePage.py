@@ -4,15 +4,17 @@ from selenium.webdriver.support.select import Select
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from abc import abstractmethod
-from ..LocatorModes import LocatorMode
+from ..Cookies import cookies
 
 
 class BasePage(object):
     """Class represents the base page. Functions as a base schema for all
     pages."""
 
-    def __init__(self, driver):
+    def __init__(self, driver, page_url):
         self.driver = driver
+        self.driver.get(page_url)
+        self.driver.add_cookie(cookies[0])
         self._verify_page()
 
         @abstractmethod
@@ -20,61 +22,90 @@ class BasePage(object):
             """This method verifies that we are on the correct page."""
 
     def wait_for_element_visibility(self, waitTime, locatorMode, locator):
-        if locatorMode == LocatorMode.ID:
+        if locatorMode == By.ID:
             element = WebDriverWait(
                 self.driver, waitTime).until(
                 EC.visibility_of_element_located(
                     (By.ID, locator)))
-        elif locatorMode == LocatorMode.NAME:
+        elif locatorMode == By.NAME:
             element = WebDriverWait(
                 self.driver, waitTime).until(
                 EC.visibility_of_element_located(
                     (By.NAME, locator)))
-        elif locatorMode == LocatorMode.XPATH:
+        elif locatorMode == By.XPATH:
             element = WebDriverWait(
                 self.driver, waitTime).until(
                 EC.visibility_of_element_located(
                     (By.XPATH, locator)))
-        elif locatorMode == LocatorMode.CSS_SELECTOR:
+        elif locatorMode == By.CSS_SELECTOR:
             element = WebDriverWait(
                 self.driver, waitTime).until(
                 EC.visibility_of_element_located(
                     (By.CSS_SELECTOR, locator)))
-        elif locatorMode == LocatorMode.CLASS_NAME:
+        elif locatorMode == By.CLASS_NAME:
             element = WebDriverWait(
                 self.driver, waitTime).until(
                 EC.visibility_of_element_located(
                     (By.CLASS_NAME, locator)))
+        elif locatorMode == By.LINK_TEXT:
+            element = WebDriverWait(
+                self.driver, waitTime).until(
+                EC.visibility_of_element_located((By.LINK_TEXT, locator)))
+        elif locatorMode == By.PARTIAL_LINK_TEXT:
+            element = WebDriverWait(
+                self.driver, waitTime).until(
+                EC.visibility_of_element_located((By.PARTIAL_LINK_TEXT,
+                                                  locator)))
+        elif locatorMode == By.TAG_NAME:
+            element = WebDriverWait(
+                self.driver, waitTime).until(
+                EC.visibility_of_element_located(
+                    (By.TAG_NAME, locator)))
         else:
             raise Exception("Unsupported locator strategy.")
         return element
 
     def wait_until_element_clickable(self, waitTime, locatorMode, locator):
-        if locatorMode == LocatorMode.ID:
+        if locatorMode == By.ID:
             element = WebDriverWait(
                 self.driver, waitTime).until(
                 EC.element_to_be_clickable(
                     (By.ID, locator)))
-        elif locatorMode == LocatorMode.NAME:
+        elif locatorMode == By.NAME:
             element = WebDriverWait(
                 self.driver, waitTime).until(
                 EC.element_to_be_clickable(
                     (By.NAME, locator)))
-        elif locatorMode == LocatorMode.XPATH:
+        elif locatorMode == By.XPATH:
             element = WebDriverWait(
                 self.driver, waitTime).until(
                 EC.element_to_be_clickable(
                     (By.XPATH, locator)))
-        elif locatorMode == LocatorMode.CSS_SELECTOR:
+        elif locatorMode == By.CSS_SELECTOR:
             element = WebDriverWait(
                 self.driver, waitTime).until(
                 EC.element_to_be_clickable(
                     (By.CSS_SELECTOR, locator)))
-        elif locatorMode == LocatorMode.CLASS_NAME:
+        elif locatorMode == By.CLASS_NAME:
             element = WebDriverWait(
                 self.driver, waitTime).until(
                 EC.element_to_be_clickable(
                     (By.CLASS_NAME, locator)))
+        elif locatorMode == By.LINK_TEXT:
+            element = WebDriverWait(
+                self.driver, waitTime).until(
+                EC.element_to_be_clickable(
+                    (By.LINK_TEXT, locator)))
+        elif locatorMode == By.PARTIAL_LINK_TEXT:
+            element = WebDriverWait(
+                self.driver, waitTime).until(
+                EC.element_to_be_clickable(
+                    (By.PARTIAL_LINK_TEXT, locator)))
+        elif locatorMode == By.TAG_NAME:
+            element = WebDriverWait(
+                self.driver, waitTime).until(
+                EC.element_to_be_clickable(
+                    (By.TAG_NAME, locator)))
         else:
             raise Exception("Unsupported locator strategy.")
         return element
@@ -83,16 +114,22 @@ class BasePage(object):
         self.driver.switch_to.window(windowHandle)
 
     def find_element(self, locatorMode, locator):
-        if locatorMode == LocatorMode.ID:
+        if locatorMode == By.ID:
             element = self.driver.find_element_by_id(locator)
-        elif locatorMode == LocatorMode.NAME:
+        elif locatorMode == By.NAME:
             element = self.driver.find_element_by_name(locator)
-        elif locatorMode == LocatorMode.XPATH:
+        elif locatorMode == By.XPATH:
             element = self.driver.find_element_by_xpath(locator)
-        elif locatorMode == LocatorMode.CSS_SELECTOR:
+        elif locatorMode == By.CSS_SELECTOR:
             element = self.driver.find_element_by_css_selector(locator)
-        elif locatorMode == LocatorMode.CLASS_NAME:
+        elif locatorMode == By.CLASS_NAME:
             element = self.driver.find_element_by_class_name(locator)
+        elif locatorMode == By.LINK_TEXT:
+            element = self.driver.find_element_by_link_text(locator)
+        elif locatorMode == By.PARTIAL_LINK_TEXT:
+            element = self.driver.find_element_by_partial_link_text(locator)
+        elif locatorMode == By.TAG_NAME:
+            element = self.driver.find_element_by_tag_name(locator)
         else:
             raise Exception("Unsupported locator strategy.")
         return element

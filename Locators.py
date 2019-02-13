@@ -1,7 +1,7 @@
 from selenium.webdriver.common.by import By
 
 
-class ContactPageLocators(object):
+class ContactPageLocators():
     """Contains all of the locators used to identify objects on Contact page"""
     DROPDOWN_LIST = (By.ID, "id_contact")
     CONTACT_HEADER = (By.XPATH, "//*[text()='Contact']")
@@ -10,5 +10,5 @@ class ContactPageLocators(object):
     MESSAGE_FIELD = (By.ID, 'message')
     ATTACHMENT_FIELD = (By.ID, 'fileUpload')
     SEND_BUTTON = (By.ID, 'submitMessage')
-    SUCCESS_ALERT = (By.CLASS_NAME, 'alert.alert-success')
-    FAILURE_ALERT = (By.CLASS_NAME, 'alert.alert-danger')
+    SUCCESS_ALERT = (By.CSS_SELECTOR, '.alert.alert-success')
+    FAILURE_ALERT = (By.CSS_SELECTOR, '.alert.alert-danger')
