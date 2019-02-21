@@ -1,5 +1,4 @@
 from .BasePage import BasePage, IncorrectPageException
-from ..TestData import Test_Data
 from ..URLS import URLS
 from SeleniumAutomationTests.Locators import ContactPageLocators
 from selenium.common.exceptions import NoSuchElementException, InvalidArgumentException
@@ -9,7 +8,7 @@ class ContactPage(BasePage):
     """Class represents the contact page."""
 
     def __init__(self, driver):
-        super(ContactPage, self).__init__(driver, URLS['Contact_page_URL'])
+        super(ContactPage, self).__init__(driver, URLS.CONTACT_PAGE_URL)
 
     def _verify_page(self):
         try:
@@ -42,24 +41,20 @@ class ContactPage(BasePage):
         except InvalidArgumentException as e:
             print('File name specified in test does not exist !')
 
-    def verify_success_messag_popup(self):
+    def verify_messag_popup(self, type):
         pop_up_element = None
         try:
-            pop_up_element = self.wait_for_element_visibility(
-                5, *ContactPageLocators.SUCCESS_ALERT)
+            if type == "success":
+                pop_up_element = self.wait_for_element_visibility(
+                    5, *ContactPageLocators.SUCCESS_ALERT)
+            else:
+                pop_up_element = self.wait_for_element_visibility(
+                    5, *ContactPageLocators.FAILURE_ALERT)
         except NoSuchElementException as e:
-            print('Success pop up not found !')
-            return False
-
-        return pop_up_element.is_displayed()
-
-    def verify_failure_message_popup(self):
-        pop_up_element = None
-        try:
-            pop_up_element = self.wait_for_element_visibility(
-                5, *ContactPageLocators.FAILURE_ALERT)
-        except NoSuchElementException as e:
-            print('Failure pop up not found !')
+            if type == 'success':
+                print('Success pop up not found !')
+            else:
+                print('Failure pop up not found !')
             return False
 
         return pop_up_element.is_displayed()
