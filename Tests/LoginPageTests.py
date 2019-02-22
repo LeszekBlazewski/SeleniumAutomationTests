@@ -59,10 +59,10 @@ class TestLoginPage():
 
     @pytest.mark.parametrize('setUp_test_information_for_zelenium',
                              ["test_create_account_valid_email"])
-    def test_create_account_valid_email(self, driver_init):
+    def test_create_account_valid_email(self, driver_init, data_generator):
         login_page_object = LoginPage(driver_init)
         login_page_object.fill_create_account_panel(
-            TestData.VALID_UNUSED_EMAIL)
+            data_generator.RANDOM_EMAIL)
         assert login_page_object.verify_title("Login")
         driver_init.add_cookie(cookies[1])
 
