@@ -1,9 +1,11 @@
 import pytest
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from selenium import webdriver
-
+from ..TestData import DataGenerator
 
 # Fixture for browsers
+
+
 @pytest.yield_fixture(params=["firefox", "chrome"], autouse=True)
 def driver_init(request, setUp_test_information_for_zelenium):
     selenium_hub_url = 'http://localhost:4444/wd/hub'
@@ -29,3 +31,10 @@ def driver_init(request, setUp_test_information_for_zelenium):
 @pytest.fixture
 def setUp_test_information_for_zelenium(request):
     return request.param
+
+
+@pytest.yield_fixture
+def data_generator():
+    generator = DataGenerator()
+    generator.generate_new_data()
+    yield generator

@@ -41,11 +41,12 @@ class LoginPageLocators():
 
 class RegistrationPageLocators():
     """Contains all of the locators used to indentify objects on Registration page"""
-    REGISTRATION_HEADER = (By.XPATH, "//*[text()='Create an account']")
+    REGISTRATION_HEADER = (
+        By.XPATH, "//*[contains(text(), 'Create an account')]")
     GENDER_SELECT_BUTTON_MR = (By.ID, 'id_gender1')
     GENDER_SELECT_BUTTON_MRS = (By.ID, 'id_gender2')
-    FIRST_NAME_FIELD = (By.ID, 'customer_firstname')
-    LAST_NAME_FIELD = (By.ID, 'customer_lastname')
+    FIRST_NAME_FIELD = (By.CSS_SELECTOR, '#customer_firstname')
+    LAST_NAME_FIELD = (By.CSS_SELECTOR, '#customer_lastname')
     EMAIL_FIELD = (By.ID, 'email')
     PASSWORD_FIELD = (By.ID, "passwd")
     DAYS_FIELD = (By.ID, 'days')
@@ -60,7 +61,7 @@ class RegistrationPageLocators():
     STATE_FIELD = (By.ID, 'id_state')
     POSTAL_CODE_FIELD = (By.ID, 'postcode')
     COUNTRY_FIELD = (By.ID, 'id_country')
-    OTHER_INFORMATION_FIELD = (By.ID, 'other')
+    ADDITIONAL_INFORMATION_FIELD = (By.ID, 'other')
     HOME_PHONE_FIELD = (By.ID, 'phone')
     MOBILE_PHONE_FIELD = (By.ID, 'phone_mobile')
     ALIAS_FIELD = (By.ID, 'alias')
