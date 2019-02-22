@@ -146,6 +146,12 @@ class BasePage(object):
         self.wait_until_element_clickable(
             waitTime, locatorMode, locator).click()
 
+    def verify_title(self, title):
+        if title in self.driver.title:
+            return True
+        else:
+            return False
+
 
 class IncorrectPageException(Exception):
     """ This exception should be thrown when trying to instantiate the wrong

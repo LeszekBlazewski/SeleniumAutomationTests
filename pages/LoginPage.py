@@ -73,12 +73,3 @@ class LoginPage(BasePage):
     def fill_create_account_panel(self, email):
         self.fill_email_address_registration(email)
         self.click_create_account_button()
-
-    def verify_title(self, title):
-        if title in self.driver.title:
-            return True
-        else:
-            return False
-
-    def print_me(self):
-        print(self.driver.title)
