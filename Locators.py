@@ -36,7 +36,7 @@ class LoginPageLocators():
     FAILURE_ALERT_TAKEN_EMAIL = (
         By.XPATH, "//*[contains(text(), 'already been registered')]")
     FOROGT_PASSWORD_BANNER = (
-        By.XPATH, "// *[contains(text(), 'Forgot your password')]")
+        By.XPATH, "//*[contains(text(), 'Forgot your password')]")
 
 
 class RegistrationPageLocators():
@@ -66,3 +66,23 @@ class RegistrationPageLocators():
     MOBILE_PHONE_FIELD = (By.ID, 'phone_mobile')
     ALIAS_FIELD = (By.ID, 'alias')
     REGISTER_BUTTON = (By.ID, 'submitAccount')
+    FAILURE_ALERT_BLANK_FIRST_NAME = (
+        By.XPATH, "//b[contains(text(), 'firstname')]")
+    FAILURE_ALERT_BLANK_LAST_NAME = (
+        By.XPATH, "//b[contains(text(), 'lastname')]")
+    FAILURE_ALERT_BLANK_EMAIL = (
+        By.XPATH, "//b[contains(text(), 'email')]")
+    FAILURE_ALERT_BLANK_PASSWORD = (
+        By.XPATH, "//b[contains(text(), 'password')]")
+    FAILURE_ALERT_BLANK_ADDRESS_STREET = (
+        By.XPATH, "//b[contains(text(), 'address1')]")
+    FAILURE_ALERT_BLANK_CITY = (
+        By.XPATH, "//b[contains(text(), 'city')]")
+    FAILURE_ALERT_NO_COUNTRY_CHOOSEN = (
+        By.XPATH, "//*[contains(text(), 'Country is invalid')]")
+    FAILURE_ALERT_BLANK_MOBILE_PHONE = (
+        By.XPATH, "//*[contains(text(), 'You must register at least one phone number.')]")
+    FAILURE_ALERT_BLANK_ALIAS = (
+        By.XPATH, "//b[contains(text(), 'alias')]")
+    FAILURE_ALERT_BLANK_POSTAL_CODE = (
+        By.XPATH, "//*[contains(text(), 'Zip/Postal code')]")

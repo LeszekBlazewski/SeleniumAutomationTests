@@ -1,6 +1,7 @@
 from .BasePage import BasePage, IncorrectPageException
 from ..URLS import URLS
 from ..Locators import RegistrationPageLocators
+from selenium.common.exceptions import TimeoutException
 
 
 class RegistrationPage(BasePage):
@@ -32,6 +33,10 @@ class RegistrationPage(BasePage):
     def fill_last_name(self, lastName):
         self.fill_out_field(
             *RegistrationPageLocators.LAST_NAME_FIELD, lastName)
+
+    def change_email(self, email):
+        self.fill_out_field(
+            *RegistrationPageLocators.EMAIL_FIELD, email)
 
     def fill_password(self, password):
         self.fill_out_field(*RegistrationPageLocators.PASSWORD_FIELD, password)
@@ -76,10 +81,15 @@ class RegistrationPage(BasePage):
             *RegistrationPageLocators.ADDITIONAL_INFORMATION_FIELD, information)
 
     def fill_phone_fields(self, homePhone, mobilePhone):
-        self.fill_out_field(
-            *RegistrationPageLocators.HOME_PHONE_FIELD, homePhone)
-        self.fill_out_field(
-            *RegistrationPageLocators.MOBILE_PHONE_FIELD, mobilePhone)
+        # Necessary to ensure that field is visible
+        self.wait_for_element_visibility(
+            5, *RegistrationPageLocators.HOME_PHONE_FIELD)
+        if homePhone != "":
+            self.fill_out_field(
+                *RegistrationPageLocators.HOME_PHONE_FIELD, homePhone)
+        if mobilePhone != "":
+            self.fill_out_field(
+                *RegistrationPageLocators.MOBILE_PHONE_FIELD, mobilePhone)
 
     def fill_alias_field(self, alias):
         self.fill_out_field(*RegistrationPageLocators.ALIAS_FIELD, alias)
@@ -87,12 +97,54 @@ class RegistrationPage(BasePage):
     def click_register_button(self):
         self.click(5, *RegistrationPageLocators.REGISTER_BUTTON)
 
-    def fill_required_fields_for_registration(self, firstName, lastName, password, addressStreet, addressBuilding, country, state, postalCode, city, mobilePhone, alias):
+    def fill_required_fields_for_registration(self, firstName, lastName, email, password, addressStreet, addressBuilding, country, state, postalCode, city, mobilePhone, alias):
         self.fill_first_name(firstName)
         self.fill_last_name(lastName)
+        self.change_email(email)
         self.fill_password(password)
         self.fill_address(addressStreet, addressBuilding)
         self.fill_city_field(city)
         self.choose_country(country, state, postalCode)
         self.fill_phone_fields("", mobilePhone)
         self.fill_alias_field(alias)
+        self.click_register_button()
+
+    def verify_popup(self, type):
+        pop_up_element = None
+        try:
+            if type == 'blank_first_name':
+                pop_up_element = self.wait_for_element_visibility(
+                    5, *RegistrationPageLocators.FAILURE_ALERT_BLANK_FIRST_NAME)
+            elif type == 'blank_last_name':
+                pop_up_element = self.wait_for_element_visibility(
+                    5, *RegistrationPageLocators.FAILURE_ALERT_BLANK_LAST_NAME)
+            elif type == 'blank_email':
+                pop_up_element = self.wait_for_element_visibility(
+                    5, *RegistrationPageLocators.FAILURE_ALERT_BLANK_EMAIL)
+            elif type == 'blank_password':
+                pop_up_element = self.wait_for_element_visibility(
+                    5, *RegistrationPageLocators.FAILURE_ALERT_BLANK_PASSWORD)
+            elif type == 'blank_address_street':
+                pop_up_element = self.wait_for_element_visibility(
+                    5, *RegistrationPageLocators.FAILURE_ALERT_BLANK_ADDRESS_STREET)
+            elif type == 'blank_city':
+                pop_up_element = self.wait_for_element_visibility(
+                    5, *RegistrationPageLocators.FAILURE_ALERT_BLANK_CITY)
+            elif type == 'no_country_choosen':
+                pop_up_element = self.wait_for_element_visibility(
+                    5, *RegistrationPageLocators.FAILURE_ALERT_NO_COUNTRY_CHOOSEN)
+            elif type == 'blank_mobile_phone':
+                pop_up_element = self.wait_for_element_visibility(
+                    5, *RegistrationPageLocators.FAILURE_ALERT_BLANK_MOBILE_PHONE)
+            elif type == 'blank_alias':
+                pop_up_element = self.wait_for_element_visibility(
+                    5, *RegistrationPageLocators.FAILURE_ALERT_BLANK_ALIAS)
+            elif type == 'blank_postal_code':
+                pop_up_element = self.wait_for_element_visibility(
+                    5, *RegistrationPageLocators.FAILURE_ALERT_BLANK_POSTAL_CODE)
+
+        except TimeoutException as e:
+            print('Failure pop up not found !')
+            return False
+
+        return pop_up_element.is_displayed()
