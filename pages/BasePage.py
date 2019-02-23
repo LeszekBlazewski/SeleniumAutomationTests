@@ -152,6 +152,10 @@ class BasePage(object):
         else:
             return False
 
+    @abstractmethod
+    def verify_popup(self, type):
+        """ Verifies whether certain pop up is displayed on page, used for assertions """
+
 
 class IncorrectPageException(Exception):
     """ This exception should be thrown when trying to instantiate the wrong

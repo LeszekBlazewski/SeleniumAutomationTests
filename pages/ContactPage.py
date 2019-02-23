@@ -1,7 +1,7 @@
 from .BasePage import BasePage, IncorrectPageException
 from ..URLS import URLS
 from SeleniumAutomationTests.Locators import ContactPageLocators
-from selenium.common.exceptions import NoSuchElementException, InvalidArgumentException
+from selenium.common.exceptions import TimeoutException
 
 
 class ContactPage(BasePage):
@@ -41,7 +41,7 @@ class ContactPage(BasePage):
         except InvalidArgumentException as e:
             print('File name specified in test does not exist !')
 
-    def verify_messag_popup(self, type):
+    def verify_popup(self, type):
         pop_up_element = None
         try:
             if type == "success":
@@ -50,7 +50,7 @@ class ContactPage(BasePage):
             else:
                 pop_up_element = self.wait_for_element_visibility(
                     5, *ContactPageLocators.FAILURE_ALERT)
-        except NoSuchElementException as e:
+        except TimeoutException as e:
             if type == 'success':
                 print('Success pop up not found !')
             else:

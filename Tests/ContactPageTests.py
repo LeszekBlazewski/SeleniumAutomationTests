@@ -14,7 +14,7 @@ class TestContactPage():
             TestData.VALID_MESSAGE_HEADER, TestData.VALID_EMAIL,
             TestData.VALID_ORDER_REFERENCE, 'test message',
             TestData.VALID_ATTACHMENT_PATH)
-        assert contact_page_obj.verify_messag_popup("success")
+        assert contact_page_obj.verify_popup("success")
         driver_init.add_cookie(cookies[1])
 
     @pytest.mark.parametrize('setUp_test_information_for_zelenium',
@@ -25,7 +25,7 @@ class TestContactPage():
             TestData.VALID_MESSAGE_HEADER, '',
             TestData.VALID_ORDER_REFERENCE, 'test message',
             TestData.VALID_ATTACHMENT_PATH)
-        assert contact_page_obj.verify_messag_popup("failure")
+        assert contact_page_obj.verify_popup("failure")
         driver_init.add_cookie(cookies[1])
 
     @pytest.mark.xfail
@@ -36,7 +36,7 @@ class TestContactPage():
         contact_page_obj.sendMessage(
             TestData.VALID_MESSAGE_HEADER, TestData.VALID_EMAIL,
             '', 'test message', TestData.VALID_ATTACHMENT_PATH)
-        assert contact_page_obj.verify_messag_popup("failure")
+        assert contact_page_obj.verify_popup("failure")
         driver_init.add_cookie(cookies[1])
 
     @pytest.mark.parametrize('setUp_test_information_for_zelenium',
@@ -47,7 +47,7 @@ class TestContactPage():
             TestData.VALID_MESSAGE_HEADER, TestData.VALID_EMAIL,
             TestData.VALID_ORDER_REFERENCE, '',
             TestData.VALID_ATTACHMENT_PATH)
-        assert contact_page_obj.verify_messag_popup("failure")
+        assert contact_page_obj.verify_popup("failure")
         driver_init.add_cookie(cookies[1])
 
     @pytest.mark.parametrize('setUp_test_information_for_zelenium',
@@ -58,7 +58,7 @@ class TestContactPage():
             TestData.VALID_MESSAGE_HEADER, TestData.INVALID_EMAIL,
             TestData.VALID_ORDER_REFERENCE, 'test message',
             TestData.VALID_ATTACHMENT_PATH)
-        assert contact_page_obj.verify_messag_popup("failure")
+        assert contact_page_obj.verify_popup("failure")
         driver_init.add_cookie(cookies[1])
 
     @pytest.mark.parametrize('setUp_test_information_for_zelenium',
@@ -68,5 +68,5 @@ class TestContactPage():
         contact_page_obj.sendMessage(
             TestData.VALID_MESSAGE_HEADER, TestData.VALID_EMAIL,
             TestData.VALID_ORDER_REFERENCE, 'test message', '')
-        assert contact_page_obj.verify_messag_popup("success")
+        assert contact_page_obj.verify_popup("success")
         driver_init.add_cookie(cookies[1])

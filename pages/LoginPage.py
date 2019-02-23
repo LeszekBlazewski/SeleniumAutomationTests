@@ -1,7 +1,7 @@
 from .BasePage import BasePage, IncorrectPageException
 from ..URLS import URLS
 from ..Locators import LoginPageLocators
-from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import TimeoutException
 
 
 class LoginPage(BasePage):
@@ -59,7 +59,7 @@ class LoginPage(BasePage):
             elif type == "forgot_password_banner":
                 pop_up_element = self.wait_for_element_visibility(
                     5, *LoginPageLocators.FOROGT_PASSWORD_BANNER)
-        except NoSuchElementException as e:
+        except TimeoutException as e:
             print('Failure pop up not found !')
             return False
 
