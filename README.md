@@ -76,7 +76,7 @@ I have also abstracted selectors of each element into separate module where they
 
 When running tests corresponding to login, registration flow etc. across many browsers a pretty big data set is required. I designed a special pytest fixture which creates test data on demand by using faker. This ensures that each test run won't fail because of the fact that user data has been already used - for example during registration process(you can't create two accounts with same email)
 
-I highly recommend checking out the [FAKER](https://github.com/joke2k/faker) [docs](https://faker.readthedocs.io/en/master/) for more references and information !
+I highly recommend checking out the [FAKER github page](https://github.com/joke2k/faker) and [docs](https://faker.readthedocs.io/en/master/) for more references and information !
 
 #### Pytest
 
