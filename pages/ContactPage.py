@@ -1,7 +1,7 @@
 from .BasePage import BasePage, IncorrectPageException
 from ..URLS import URLS
 from SeleniumAutomationTests.Locators import ContactPageLocators
-from selenium.common.exceptions import TimeoutException
+from selenium.common.exceptions import TimeoutException, InvalidArgumentException
 
 
 class ContactPage(BasePage):
