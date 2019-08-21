@@ -85,7 +85,7 @@ Pytest is an awesome test framework implemented as a python module. It helps you
 I decided to used pytest because of
 
 - [***Fixtures***](#fixtures-in-code-explanation)
-- [***Parallel test execution***]((#2.-take-advantage-of-pytest-to-run-your-tests))
+- [***Parallel test execution***](#2.-take-advantage-of-pytest-to-run-your-tests)
 - [***Convenient way to provide data to tests***](#generate-new-test-data-on-demand)
 - ***Multiple runs of test cases***
 - ***Endless possibilities of settings customization***
